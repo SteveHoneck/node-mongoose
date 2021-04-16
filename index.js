@@ -19,13 +19,12 @@ connect.then(() => { //the "mongoose.connect" method returns a promise, so a ".t
 
     console.log('Connected correctly to server'); //inside the function for the then method, console log that we connected to the server
 
-    const newCampsite = new Campsite({ //Make a new document, the "Campsite" with the capital C is the model that we are extracting from, pass an object that sets the documents fields
+    Campsite.create({ //".create" is a method available on the model (as opposed to using "new Campsite") which takes an object which defines the new document to create, then automatically saves it. It returns a promise that resolves to the new document
         name: 'React Lake Campground',
         description: 'test'
-    });
+    })
 
-    newCampsite.save() //use the save method (Mongoose method that will save the document to the database) on the new document, will return a promise that says wheter the save failed or succeeded. If success, the promise will resolve with the saved campsite.
-    .then(campsite => { //Takes the resolved promise from ".save" and names it "campsite", passes it to the console.log to show what has been saved
+    .then(campsite => { //Takes the resolved promise from ".create" and names it "campsite", passes it to the console.log to show what has been made and saved
         console.log(campsite);
         return Campsite.find(); //use ".find" with capital C (referrs to the Model), to look for all documents that are based on the Campsite model, return the result as a promise which if successful will return the found documents inside an array of objects.
     })
